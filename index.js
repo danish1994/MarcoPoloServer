@@ -1,40 +1,15 @@
-const http = require('http');
-const url = require('url');
+const cluster = require('cluster');
+const {server} = require('./server');
 
-const resultMapping = {};
-
-const processOutputByIndex = (i) => {
-    if (i % 7 === 0 && i % 4 === 0) {
-        return 'marcopolo';
+if (cluster.isMaster) {
+    const cpuCount = require('os').cpus().length;
+    for (let i = 0; i < cpuCount; i++) {
+        cluster.fork();
     }
+} else {
+    server();
+}
 
-    if (i % 4 === 0) {
-        return 'marco';
-    }
-
-    if (i % 7 === 0) {
-        return 'polo';
-    }
-
-    return i.toString();
-};
-
-const processOutput = ( n, res) => {
-    for (let i = 1; i <= n; i++) {
-        let output = resultMapping[i];
-        if (!output) {
-            output = processOutputByIndex(i);
-            resultMapping[i] = output;
-        }
-        res.write(output + ' ');
-    }
-};
-
-http
-    .createServer((req, res) => {
-        const queryObject = url.parse(req.url, true).query;
-        const {number = 0} = queryObject;
-        processOutput(number, res);
-        res.end('\n');
-    })
-    .listen(3000);
+cluster.on('fork', function (worker) {
+    console.log(`Worker Added - ${worker.id}`);
+});
