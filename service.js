@@ -14,7 +14,6 @@ class MarcoPoloStream extends Readable {
         else {
             this.push(this.getIndexMapping(i));
         }
-        return n;
     }
 
     getIndexMapping(i) {
