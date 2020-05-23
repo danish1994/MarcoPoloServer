@@ -15,7 +15,6 @@ const getIndexMapping = (i) => {
     }
 
     return i.toString();
-
 };
 
 const processInputByIndex = (i) => {
