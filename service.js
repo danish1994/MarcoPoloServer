@@ -2,19 +2,21 @@ const indexCache = {};
 const numberCache = {};
 
 const getIndexMapping = (i) => {
+    let str = '';
     if (i % 7 === 0 && i % 4 === 0) {
-        return 'marcopolo';
+        str += 'marcopolo';
+    } else if (i % 4 === 0) {
+        str += 'marco';
+    } else if (i % 7 === 0) {
+        str += 'polo';
+    } else {
+        str += i.toString();
     }
 
-    if (i % 4 === 0) {
-        return 'marco';
-    }
+    // Adding new line after 1000 numbers
+    str += (i % 1000 === 0) ? '\n' : ' ';
 
-    if (i % 7 === 0) {
-        return 'polo';
-    }
-
-    return i.toString();
+    return str;
 };
 
 const processInputByIndex = (i) => {
@@ -28,8 +30,7 @@ const processOutput = (n) => {
     if (!numberCache[n]) {
         let result = '';
         for (let i = 1; i <= n; i++) {
-            // Adding new line after 1000 numbers
-            result += (processInputByIndex(i) + ((i % 1000 === 0) ? '\n' : ' '));
+            result += processInputByIndex(i);
         }
 
         numberCache[n] = result;
