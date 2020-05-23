@@ -30,7 +30,7 @@ const processInputByIndex = (i) => {
 
 const processOutput = (n) => {
     if (!numberCache[n]) {
-        let result = [];
+        let result = '';
         for (let i = 1; i <= n; i++) {
             result += processInputByIndex(i);
         }
