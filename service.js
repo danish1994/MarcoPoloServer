@@ -4,19 +4,21 @@ const numberCache = {};
 const getIndexMapping = (i) => {
     if (!indexCache[i]) {
         if (i % 7 === 0 && i % 4 === 0) {
-            return 'marcopolo';
+            indexCache[i] = 'marcopolo';
         }
 
         if (i % 4 === 0) {
-            return 'marco';
+            indexCache[i] = 'marco';
         }
 
         if (i % 7 === 0) {
-            return 'polo';
+            indexCache[i] = 'polo';
         }
 
-        return i.toString();
+        indexCache[i] = i.toString();
     }
+
+    return indexCache[i];
 };
 
 const processOutput = (n) => {
