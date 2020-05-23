@@ -3,13 +3,15 @@ const numberCache = {};
 
 const getIndexMapping = (i) => {
     let str = '';
-    if (i % 7 === 0 && i % 4 === 0) {
-        str += 'marcopolo';
-    } else if (i % 4 === 0) {
+    if (i % 4 === 0) {
         str += 'marco';
-    } else if (i % 7 === 0) {
+    }
+
+    if (i % 7 === 0) {
         str += 'polo';
-    } else {
+    }
+
+    if (!str.length) {
         str += i.toString();
     }
 
