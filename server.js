@@ -1,15 +1,11 @@
 const http = require('http');
-const url = require('url');
-const {processOutput} = require('./controller');
+const {handleRequest} = require('./controller');
 
+
+// We have 1 route so we didn't create proper router.
 const server = () => {
     http
-        .createServer((req, res) => {
-            const queryObject = url.parse(req.url, true).query;
-            const {number = 0} = queryObject;
-            processOutput(number, res);
-            res.end('\n');
-        })
+        .createServer(handleRequest)
         .listen(3000);
 };
 
